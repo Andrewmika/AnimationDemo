@@ -15,4 +15,5 @@
 
 - (CAKeyframeAnimation *)createHalfCurveAnimation:(NSString *)keypath duration:(CFTimeInterval)duration fromvalue:(id)fromValue toValue:(id)toValue;
 
+- (CAKeyframeAnimation *)createSpringAnimation:(NSString *)keypath duration:(CFTimeInterval)duration usingSpringWithDamping:(CGFloat)damping initialSpringVolocity:(CGFloat)velocity fromValue:(id)fromValue toValue:(id)toValue;
 @end

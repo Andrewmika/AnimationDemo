@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#define BALLDiameter 6
 
 @interface ADSLine : CALayer
 

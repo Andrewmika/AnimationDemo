@@ -11,7 +11,6 @@
 #import "ADSKeyFrameAnimation.h"
 
 #define COUNT 6
-#define BALLDiameter 6
 #define LINEHEIGHT 2
 #define DISTANCE ((self.frame.size.width - BALLDiameter) / (COUNT - 1))
 
