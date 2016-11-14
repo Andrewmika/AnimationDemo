@@ -46,7 +46,7 @@
 
 // 设置数据
 - (void)configData {
-    self.arrayTitles = @[@"1.PageControl"];
+    self.arrayTitles = @[@"1.PageControl",@"2.dashboard"];
 }
 
 // 设置约束
@@ -84,6 +84,10 @@
     switch (indexPath.row) {
         case 0: {
             [[ADSInteractor sharedInstance] go_pushToPagecontrolVC];
+            break;
+        }
+        case 1: {
+            [[ADSInteractor sharedInstance] go_dashboardVC];
             break;
         }
         default:

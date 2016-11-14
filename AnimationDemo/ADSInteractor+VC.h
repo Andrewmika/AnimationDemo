@@ -12,4 +12,5 @@
 
 - (void)go_pushToPagecontrolVC;
 
+- (void)go_dashboardVC;
 @end

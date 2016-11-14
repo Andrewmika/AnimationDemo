@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3F1B7A8C1E208980C9201B7A /* libPods-AnimationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3155CE15FCF6D7E2B31CA33E /* libPods-AnimationDemo.a */; };
 		5022A2F31DD1B56E00CE8752 /* ADSKeyFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022A2F21DD1B56E00CE8752 /* ADSKeyFrameAnimation.m */; };
+		5071854B1DD5937E00EAA8ED /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5071854A1DD5937E00EAA8ED /* DashboardViewController.m */; };
+		5071854E1DD5949600EAA8ED /* DashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5071854D1DD5949600EAA8ED /* DashboardView.m */; };
+		507185511DD5951300EAA8ED /* DashboardPathLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 507185501DD5951300EAA8ED /* DashboardPathLayer.m */; };
 		50A9B6DE1DD2C51C0033FABB /* ADSCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9B6DD1DD2C51C0033FABB /* ADSCircle.m */; };
 		50F51E1F1DD0772E00111179 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F51E1E1DD0772E00111179 /* main.m */; };
 		50F51E221DD0772E00111179 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F51E211DD0772E00111179 /* AppDelegate.m */; };
@@ -27,6 +30,12 @@
 		3155CE15FCF6D7E2B31CA33E /* libPods-AnimationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AnimationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5022A2F11DD1B56E00CE8752 /* ADSKeyFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSKeyFrameAnimation.h; sourceTree = "<group>"; };
 		5022A2F21DD1B56E00CE8752 /* ADSKeyFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSKeyFrameAnimation.m; sourceTree = "<group>"; };
+		507185491DD5937E00EAA8ED /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		5071854A1DD5937E00EAA8ED /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		5071854C1DD5949600EAA8ED /* DashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardView.h; sourceTree = "<group>"; };
+		5071854D1DD5949600EAA8ED /* DashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardView.m; sourceTree = "<group>"; };
+		5071854F1DD5951300EAA8ED /* DashboardPathLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardPathLayer.h; sourceTree = "<group>"; };
+		507185501DD5951300EAA8ED /* DashboardPathLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardPathLayer.m; sourceTree = "<group>"; };
 		50A9B6DC1DD2C51C0033FABB /* ADSCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSCircle.h; sourceTree = "<group>"; };
 		50A9B6DD1DD2C51C0033FABB /* ADSCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSCircle.m; sourceTree = "<group>"; };
 		50F51E1A1DD0772E00111179 /* AnimationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +74,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		507185481DD5936500EAA8ED /* dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				507185491DD5937E00EAA8ED /* DashboardViewController.h */,
+				5071854A1DD5937E00EAA8ED /* DashboardViewController.m */,
+				5071854C1DD5949600EAA8ED /* DashboardView.h */,
+				5071854D1DD5949600EAA8ED /* DashboardView.m */,
+				5071854F1DD5951300EAA8ED /* DashboardPathLayer.h */,
+				507185501DD5951300EAA8ED /* DashboardPathLayer.m */,
+			);
+			path = dashboard;
+			sourceTree = "<group>";
+		};
 		50F51E111DD0772E00111179 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +108,7 @@
 		50F51E1C1DD0772E00111179 /* AnimationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				507185481DD5936500EAA8ED /* dashboard */,
 				50F51E3E1DD0812B00111179 /* Interactor */,
 				50F51E341DD07E2200111179 /* PageControl */,
 				50F51E201DD0772E00111179 /* AppDelegate.h */,
@@ -276,11 +299,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507185511DD5951300EAA8ED /* DashboardPathLayer.m in Sources */,
 				5022A2F31DD1B56E00CE8752 /* ADSKeyFrameAnimation.m in Sources */,
+				5071854E1DD5949600EAA8ED /* DashboardView.m in Sources */,
 				50F51E251DD0772E00111179 /* ViewController.m in Sources */,
 				50F51E221DD0772E00111179 /* AppDelegate.m in Sources */,
 				50F51E1F1DD0772E00111179 /* main.m in Sources */,
 				50F51E3A1DD07E6B00111179 /* ADSPageControl.m in Sources */,
+				5071854B1DD5937E00EAA8ED /* DashboardViewController.m in Sources */,
 				50F51E441DD083FB00111179 /* ADSInteractor+VC.m in Sources */,
 				50F51E3D1DD07E7E00111179 /* ADSLine.m in Sources */,
 				50F51E371DD07E3600111179 /* PageControlViewController.m in Sources */,
