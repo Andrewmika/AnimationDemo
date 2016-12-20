@@ -41,13 +41,12 @@
 
 - (UIImageView *)imageView {
     if (!_imageView) {
-        _imageView = [UIImageView new];
-        _imageView.backgroundColor = [UIColor blackColor];
-        _imageView.frame = CGRectMake(self.frame.size.width * 0.5 - 95,self.frame.size.height * 0.5 - 2, 100, 4);
-        _imageView.layer.anchorPoint = CGPointMake(0.95, 0.5);
-        _imageView.frame = CGRectMake(self.frame.size.width * 0.5 - 95,self.frame.size.height * 0.5 - 2, 100, 4);
+        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_pointer"]];
+        _imageView.frame = CGRectMake(self.frame.size.width * 0.5 - 3.25,self.frame.size.height * 0.5 - 42, 6.5, 44);
+        _imageView.layer.anchorPoint = CGPointMake(0.5, 0.95);
+        _imageView.frame = CGRectMake(self.frame.size.width * 0.5 - 3.25,self.frame.size.height * 0.5 - 42, 6.5, 44);
 
-        [_imageView setTransform:CGAffineTransformMakeRotation(-M_PI / 6)];
+        [_imageView setTransform:CGAffineTransformMakeRotation(-M_PI * 2 / 3)];
     }
     return _imageView;
 }

@@ -11,6 +11,7 @@
 
 @interface ADSInteractor : NSObject
 @property (nonatomic, copy, readonly)  NSString  *navigatorName; // <##>
+
 + (instancetype)sharedInstance;
 - (void)configBaseNavigatorClassName:(NSString *)baseNaviName;
 // 普通push

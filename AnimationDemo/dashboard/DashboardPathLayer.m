@@ -7,8 +7,14 @@
 //
 
 #import "DashboardPathLayer.h"
-#import <UIKit/UIKit.h>
 
+@interface DashboardPathLayer()
+@property (nonatomic, strong)  UIColor  *circleBGColor; // <##>
+@property (nonatomic, strong)  UIColor  *highlightColor; // <##>
+@property (nonatomic, strong)  UIColor  *maskColor; // <##>
+@property (nonatomic, assign)  CGFloat  circleRadius; // 圆半径
+@property (nonatomic, assign)  CGFloat  lineWidth; // 圆路径宽度
+@end
 
 @implementation DashboardPathLayer
 
@@ -16,39 +22,48 @@
 {
     self = [super init];
     if (self) {
+        self.circleRadius = 52.5;
         self.lineWidth = 20;
-        self.circleRadius = 100;
+        self.circleBGColor = [UIColor redColor];
+        self.highlightColor = [UIColor greenColor];
+        self.maskColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.2];
+
     }
     return self;
 }
 
+
+- (void)configCircleRadius:(CGFloat)circleRadius lineWidth:(CGFloat)lineWidth circleBGColcor:(UIColor *)circleBGColor highlightColor:(UIColor *)highlightColor  maskColor:(UIColor *)maskColor {
+    self.circleRadius = circleRadius;
+    self.lineWidth = lineWidth;
+    self.circleBGColor = circleBGColor;
+    self.highlightColor = highlightColor;
+    self.maskColor = maskColor;
+}
+
 - (void)drawInContext:(CGContextRef)ctx {
-    CGMutablePathRef C1Path = CGPathCreateMutable();
     CGFloat radius = self.circleRadius - self.lineWidth * 0.5;
     CGPoint center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
 
-    CGPoint layerZeroPoint = CGPointMake(self.frame.size.width * 0.5 - radius, self.frame.size.height * 0.5 - radius);
-    UIBezierPath *path1 = [UIBezierPath bezierPath];
-    [path1 addArcWithCenter:center radius:radius startAngle:-(M_PI * (7.0 / 6.0)) endAngle:M_PI * (1.0 / 6.0) clockwise:YES];
-    CGContextAddPath(ctx, path1.CGPath);
+    UIBezierPath *pathBG = [UIBezierPath bezierPath];
+    [pathBG addArcWithCenter:center radius:radius startAngle:-(M_PI * (7.05 / 6.0)) endAngle:M_PI * (1.05 / 6.0) clockwise:YES];
+    CGContextAddPath(ctx, pathBG.CGPath);
     CGContextSetLineWidth(ctx, self.lineWidth);
-    CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, self.circleBGColor.CGColor);
     CGContextStrokePath(ctx);
     
-    UIBezierPath *path2 = [UIBezierPath bezierPath];
-    [path2 addArcWithCenter:center radius:radius startAngle:-(M_PI * (5.0 / 6.0)) endAngle:-M_PI * (1.0 / 6.0) clockwise:YES];
-    CGContextAddPath(ctx, path2.CGPath);
+    UIBezierPath *pathHighlight = [UIBezierPath bezierPath];
+    [pathHighlight addArcWithCenter:center radius:radius startAngle:-(M_PI * (5.0 / 6.0)) endAngle:-M_PI * (1.0 / 6.0) clockwise:YES];
+    CGContextAddPath(ctx, pathHighlight.CGPath);
     CGContextSetLineWidth(ctx, self.lineWidth);
-    CGContextSetStrokeColorWithColor(ctx, [UIColor greenColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, self.highlightColor.CGColor);
     CGContextStrokePath(ctx);
 
-    UIBezierPath *path3 = [UIBezierPath bezierPath];
-    [path3 moveToPoint:center];
-    [path3 addArcWithCenter:center radius:radius startAngle:-(M_PI * (5.0 / 6.0)) endAngle:-M_PI * (1.0 / 6.0) clockwise:YES];
-    CGContextAddPath(ctx, path3.CGPath);
-    CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:0 green:1 blue:0 alpha:0.3].CGColor);
+    UIBezierPath *pathMask = [UIBezierPath bezierPath];
+    [pathMask moveToPoint:center];
+    [pathMask addArcWithCenter:center radius:radius startAngle:-(M_PI * (5.0 / 6.0)) endAngle:-M_PI * (1.0 / 6.0) clockwise:YES];
+    CGContextAddPath(ctx, pathMask.CGPath);
+    CGContextSetFillColorWithColor(ctx, self.maskColor.CGColor);
     CGContextFillPath(ctx);
-
-    
 }
 @end

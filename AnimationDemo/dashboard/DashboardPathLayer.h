@@ -7,8 +7,10 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 
 @interface DashboardPathLayer : CALayer
-@property (nonatomic, assign)  CGFloat  circleRadius; // 圆半径
-@property (nonatomic, assign)  CGFloat  lineWidth; // 圆路径宽度
+
+- (void)configCircleRadius:(CGFloat)circleRadius lineWidth:(CGFloat)lineWidth circleBGColcor:(UIColor *)circleBGColor highlightColor:(UIColor *)highlightColor  maskColor:(UIColor *)maskColor;
+
 @end

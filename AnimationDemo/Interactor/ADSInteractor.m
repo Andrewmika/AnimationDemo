@@ -9,6 +9,11 @@
 #import "ADSInteractor.h"
 #import <objc/runtime.h>
 
+@interface ADSInteractor ()
+@property (nonatomic, copy, readwrite)  NSString  *navigatorName; // <##>
+
+@end
+
 @implementation ADSInteractor
 
 + (instancetype)sharedInstance {
@@ -20,15 +25,6 @@
     return sharedInstance;
 }
 
-- (NSString *)navigatorName {
-    NSString *name = objc_getAssociatedObject(self, _cmd);
-    return name;
-}
-
-- (void)setNavigatorName:(NSString *)navigatorName {
-    objc_setAssociatedObject(self, @selector(navigatorName), navigatorName, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
 - (void)configBaseNavigatorClassName:(NSString *)baseNaviName {
     self.navigatorName = baseNaviName;
 }
@@ -36,43 +32,61 @@
 
 - (void)pushToVC:(UIViewController *)VC {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
-        UITabBarController *controller = (UITabBarController *)rootViewController;
-        UINavigationController *navi = controller.selectedViewController;
-        [VC setHidesBottomBarWhenPushed:YES];
-        [navi pushViewController:VC animated:YES];
-    }
-    else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navi = (UINavigationController *)rootViewController;
-        [navi pushViewController:VC animated:YES];
-    }
-    else if ([rootViewController isKindOfClass:[UIViewController class]]) {
-        if (!rootViewController.navigationController) {
-            UINavigationController *navi;
-            if (!self.navigatorName) {
-                navi = [[UINavigationController alloc] initWithRootViewController:VC];
-            }
-            else {
-                Class className = NSClassFromString(self.navigatorName);
-                navi = [[className alloc] initWithRootViewController:VC];
-            }
-            UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePresentedController)];
-            NSMutableArray *items = [NSMutableArray arrayWithArray:VC.navigationItem.leftBarButtonItems];
-            [items insertObject:close atIndex:0];
-            [VC.navigationItem setLeftBarButtonItems:items];
-            [rootViewController presentViewController:navi animated:YES completion:nil];
+    [self pushOrPresentToVC:VC OriginVC:rootViewController];
+}
 
+#pragma mark - Private Method
+- (UINavigationController *)topNavigationControllerFromVC:(UIViewController *)VC {
+    if ([VC isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *controller = (UITabBarController *)VC;
+        UIViewController *selectVC = controller.selectedViewController;
+        [VC setHidesBottomBarWhenPushed:YES];
+        return [self topNavigationControllerFromVC:selectVC];
+    }
+    else if ([VC isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navi = (UINavigationController *)VC;
+        UIViewController *topVC = navi.topViewController;
+        if (!topVC.presentedViewController) {
+            return navi;
         }
         else {
-            [rootViewController.navigationController pushViewController:VC animated:YES];
-
+            return [self topNavigationControllerFromVC:topVC.presentedViewController];
         }
+    }
+    else if ([VC isKindOfClass:[UIViewController class]]) {
+        if (!VC.presentedViewController) {
+            return nil;
+        }
+        else {
+            return [self topNavigationControllerFromVC:VC.presentedViewController];
+        }
+    }
+    return nil;
+}
+
+- (void)pushOrPresentToVC:(UIViewController *)targetVC OriginVC:(UIViewController *)originVC {
+    UINavigationController *navi = [self topNavigationControllerFromVC:originVC];
+    if (navi) {
+        [navi pushViewController:targetVC animated:YES];
+    }
+    else {
+        if (!self.navigatorName) {
+            navi = [[UINavigationController alloc] initWithRootViewController:targetVC];
+        }
+        else {
+            Class className = NSClassFromString(self.navigatorName);
+            navi = [[className alloc] initWithRootViewController:targetVC];
+        }
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePresentedController)];
+        NSMutableArray *items = [NSMutableArray arrayWithArray:targetVC.navigationItem.leftBarButtonItems];
+        [items insertObject:close atIndex:0];
+        [targetVC.navigationItem setLeftBarButtonItems:items];
+        [originVC presentViewController:navi animated:YES completion:nil];
     }
 }
 
 - (void)closePresentedController {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     [rootViewController dismissViewControllerAnimated:YES completion:nil];
-
 }
 @end
